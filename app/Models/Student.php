@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Authenticatable
+class Student extends Authenticatable
 {
     use HasApiTokens;
     public $incrementing = false;
@@ -19,8 +19,4 @@ class Teacher extends Authenticatable
     public function getAuthIdentifier(){
         return $this->id;
     }
-//    public function validateForPassportPasswordGrant(string $password): bool
-//    {
-//        return true;
-//    }
 }

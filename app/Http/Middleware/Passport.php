@@ -42,8 +42,8 @@ class Passport
             }
             $content = json_decode($response->getContent(),1);
             $cookieAccessTokenValue = $content['access_token'].$cookieSeparator.$grand;
-            $cookie = new Cookie('access_token',$cookieAccessTokenValue,time()+$content['expires_in']-10);
-            $response->setContent(['ok'=>1])->withCookie($cookie);
+            $cookie = new Cookie(config('auth.oauth_client.cookie_name'),$cookieAccessTokenValue,time()+$content['expires_in']-10);
+            $response->setContent([])->withCookie($cookie);
             return $response;
         }
         return $next($request);

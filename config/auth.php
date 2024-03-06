@@ -44,6 +44,10 @@ return [
             'driver' => 'passport',
             'provider' => 'teacher',
         ],
+        'student' => [
+            'driver' => 'passport',
+            'provider' => 'student',
+        ],
     ],
 
     /*
@@ -72,6 +76,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Teacher::class,
         ],
+        'student' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -82,7 +90,9 @@ return [
     'oauth_client' => [
         'id' => env('OAUTH_CLIENT_ID'),
         'secret' => env('OAUTH_CLIENT_SECRET'),
+        'cookie_name' => 'access_token'
     ],
+
 
 
 
