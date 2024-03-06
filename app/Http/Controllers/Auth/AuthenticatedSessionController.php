@@ -23,7 +23,7 @@ class AuthenticatedSessionController extends Controller
                 'teacher' => '我是老师',
                 'student' => '我是学生',
             ],
-        ]);
+        ])->with('Cookie',\Cookie::forget(config('auth.oauth_client.cookie_name')));
     }
 
     public function store(LoginRequest $request): RedirectResponse
