@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('student_courses', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_id')->index();
+            $table->bigInteger('course_id')->index();
             $table->timestamps();
         });
     }

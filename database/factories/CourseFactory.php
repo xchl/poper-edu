@@ -17,7 +17,10 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'user_id' => '2b4c794e-dad7-11ee-a294-0242ac140003',
+            'year_month' => $this->faker->year . $this->faker->month,
+            'course_fee' => $this->faker->randomFloat(2, 100, 1000),
         ];
     }
 }

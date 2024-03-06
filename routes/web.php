@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //课程相关
+    Route::get('/course',[CourseController::class,'index'])->name('course.index');
+    Route::get('/course/create',[CourseController::class,'create'])->name('course.create');
+    Route::post('/course',[CourseController::class,'store'])->name('course.store');
+
+    //账单相关
 });
 
 require __DIR__.'/auth.php';
