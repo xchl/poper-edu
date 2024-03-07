@@ -10,6 +10,19 @@ defineProps({
         type: Object,
     },
 });
+const getBillStatus = (status) => {
+    switch (status) {
+        case 1:
+            return '已创建';
+        case 2:
+            return '发送中';
+        case 3:
+            return '已发送';
+        default:
+            return '未知';
+    }
+}
+
 </script>
 
 <template>
@@ -29,17 +42,25 @@ defineProps({
                         <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                课程名称
+                                名称
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                年月
+                                状态
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                费用
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                学生
+                        </tr>
+                        <tr
+                            class="bg-white text-sm border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                            v-for="bill in courseBills.data"
+                            :key="bill.id"
+                        >
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{bill.name}}
                             </th>
+                            <td class="px-6 py-4">
+                                {{getBillStatus(bill.bill_status)}}
+                            </td>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,7 +68,7 @@ defineProps({
                     </table>
                 </div>
                 <div class="flex justify-center mt-5">
-<!--                    <Pagination x-if :links="courseBills.links" />-->
+                    <Pagination x-if :links="courseBills.links" />
                 </div>
             </div>
         </div>

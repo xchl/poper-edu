@@ -16,26 +16,26 @@ class CourseBillController extends Controller
 {
     public function index()
     {
-        $courses = CourseBill::query()
+        $courseBills = CourseBill::query()
             ->where(['teacher_user_id'=>Auth::user()->id])
+            ->with('course')
 //            ->with('students')
             ->orderBy('id', 'desc')
             ->paginate(10)
             ->withQueryString();
-        $courses->setCollection($courses->getCollection()->map(function ($courseBill) {
+        $courseBills->setCollection($courseBills->getCollection()->map(function ($courseBill) {
             return [
                 'id' => $courseBill->id,
                 'name' => $courseBill->name,
+                'bill_status' => $courseBill->bill_status,
 //                'year_month' => $courseBill->year_month,
 //                'course_fee' => $courseBill->course_fee,
-//                'students' => $courseBill->students->map(function ($student) {
-//                    return $courseBill->name;
-//                }),
+//                'course' => $courseBill->course->name
             ];
         }));
 
         return Inertia::render('CourseBill/Index',[
-            'courses' => $courses
+            'courseBills' => $courseBills
         ]);
     }
 
@@ -46,17 +46,17 @@ class CourseBillController extends Controller
                 'required',
                 'integer',
                 'exists:courses,id',
-//                'unique:course_bills,course_id',
+                'unique:course_bills,course_id',
             ],
         ]);
         $model = CourseBill::create([
             'course_id' => $attributes['course'],
             'teacher_user_id' => Auth::user()->id,
             'name' => Course::find($attributes['course'])->name,
-            'bill_status' => CourseBillEnum::created
+            'bill_status' => CourseBillEnum::created->value
         ]);
         CourseBillCreated::dispatch($model->id);
-        return redirect('/course-bill/index');
+        return redirect('/course-bill');
     }
     public function create()
     {
