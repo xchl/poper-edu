@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('course_bills', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('course_id')->unique();
+            $table->uuid('teacher_user_id')->index();
+            $table->string('name');
+            $table->tinyInteger('bill_status');
             $table->timestamps();
         });
     }

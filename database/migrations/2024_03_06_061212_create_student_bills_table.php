@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('student_bills', function (Blueprint $table) {
             $table->id();
+            $table->uuid('student_user_id')->index();
+            $table->bigInteger('course_bill_id');
+            $table->bigInteger('course_id');
+            $table->decimal('course_fee',8,2,true);
+            $table->string('omise_charge_id');
+            $table->bigInteger('bill_status');
             $table->timestamps();
         });
     }

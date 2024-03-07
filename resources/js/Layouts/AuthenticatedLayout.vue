@@ -35,7 +35,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('course.index')" :active="route().current('course.index')">
                                     课程管理
                                 </NavLink>
-                                <NavLink :href="route('course.index')" :active="route().current('course.index')">
+                                <NavLink :href="route('course-bill.index')" :active="route().current('course-bill.index')">
                                     账单管理
                                 </NavLink>
                             </div>

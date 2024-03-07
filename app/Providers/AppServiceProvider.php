@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\CourseBill\CourseBillService;
+use App\Models\CourseBill;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -17,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Sanctum::ignoreMigrations();
         Passport::ignoreMigrations();
+
+        $this->app->singleton(CourseBillService::class, function ($app) {
+            return new CourseBillService();
+        });
     }
 
     /**

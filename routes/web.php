@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\CourseBillController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CourseController;
@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/course',[CourseController::class,'store'])->name('course.store');
 
     //账单相关
+    Route::get('/course-bill',[CourseBillController::class,'index'])->name('course-bill.index');
+    Route::get('/course-bill/create',[CourseBillController::class,'create'])->name('course-bill.create');
+    Route::post('/course-bill',[CourseBillController::class,'store'])->name('course-bill.store');
 });
 
 require __DIR__.'/auth.php';
