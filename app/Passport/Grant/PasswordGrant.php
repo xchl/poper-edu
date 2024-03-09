@@ -34,8 +34,8 @@ class PasswordGrant extends \League\OAuth2\Server\Grant\PasswordGrant
 
         $client = $this->getClientEntityOrFail($clientId, $request);
         if(!$client->provider){
-            $grand = $this->getRequestParameter('grand', $request );
-            $client->provider = config('auth.guards.'.$grand.'.provider');
+            $guard = $this->getRequestParameter('guard', $request );
+            $client->provider = config('auth.guards.'.$guard.'.provider');
         }
 
         // If a redirect URI is provided ensure it matches what is pre-registered

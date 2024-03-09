@@ -11,18 +11,18 @@ import { reactive } from 'vue'
 const { version } = usePage();
 
 defineProps({
-    grandOptions: {
+    guardOptions: {
         type: Object,
     },
 });
 
 const form = reactive({
-    grand: '',
+    guard: '',
     username: '',
     password: '',
     processing: false,
     errors: {
-        grand: '',
+        guard: '',
         username: '',
         password: '',
     },
@@ -33,14 +33,14 @@ const submit = () => {
     form.processing = true;
     form.errorMessage = '';
     axios.post('oauth/token',{
-        grand : form.grand,
+        guard : form.guard,
         username : form.username,
         password : form.password,
     }).then((res) => {
-        if(form.grand==='teacher'){
+        if(form.guard==='teacher'){
             return router.visit('/course', { method: 'get' })
         }
-        if(form.grand==='student'){
+        if(form.guard==='student'){
             return router.visit('/my-course', { method: 'get' })
         }
         router.visit('/', { method: 'get' })
@@ -65,11 +65,11 @@ const submit = () => {
                 <InputLabel for="" value="请选择" class="mb-1" />
                 <div class="flex justify-between gap-2 mb-3">
                     <div
-                        v-for="(value, key, index) in grandOptions"
+                        v-for="(value, key, index) in guardOptions"
                         :key="index"
                         class="flex w-1/2 items-center ps-4 border border-gray-200 rounded dark:border-gray-700"
                     >
-                        <input :id="'bordered-radio-'+key" required v-model="form.grand" type="radio" :value="key" name="bordered-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input :id="'bordered-radio-'+key" required v-model="form.guard" type="radio" :value="key" name="bordered-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label :for="'bordered-radio-'+key" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{value}}</label>
                     </div>
                 </div>

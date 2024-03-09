@@ -20,20 +20,20 @@ class Passport
         $cookieValue = $request->cookie('access_token');
         $cookieSeparator = '@@@';
         if ($cookieValue) {
-            [$accessToken,$grand] = explode($cookieSeparator,$cookieValue);
+            [$accessToken,$guard] = explode($cookieSeparator,$cookieValue);
             $request->headers->set('Authorization', 'Bearer ' . $accessToken);
-            Auth::setDefaultDriver($grand);
+            Auth::setDefaultDriver($guard);
         }
 
         if(!$cookieValue && $request->is('oauth/token')){
-            $grand = $request->input('grand');
+            $guard = $request->input('guard');
             $data = [
                 'grant_type' => 'password',
                 'client_id' =>  config('auth.oauth_client.id'),
                 'client_secret' => config('auth.oauth_client.secret'),
                 'username' => $request->input('username'),
                 'password' => $request->input('password'),
-                'grand' => $request->input('grand'),
+                'guard' => $request->input('guard'),
             ];
             $request->merge($data);
             $response = $next($request);
@@ -41,7 +41,7 @@ class Passport
                 return $response;
             }
             $content = json_decode($response->getContent(),1);
-            $cookieAccessTokenValue = $content['access_token'].$cookieSeparator.$grand;
+            $cookieAccessTokenValue = $content['access_token'].$cookieSeparator.$guard;
             $cookie = new Cookie(config('auth.oauth_client.cookie_name'),$cookieAccessTokenValue,time()+$content['expires_in']-10);
             $response->setContent([])->withCookie($cookie);
             return $response;

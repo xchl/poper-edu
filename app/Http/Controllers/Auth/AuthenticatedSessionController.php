@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login', [
             //todo enums
-            'grandOptions' => [
+            'guardOptions' => [
                 'teacher' => '我是老师',
                 'student' => '我是学生',
             ],
