@@ -30,21 +30,22 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-                                <NavLink :href="route('course.index')" :active="route().current('course.index')">
-                                    课程管理
-                                </NavLink>
-                                <NavLink :href="route('course-bill.index')" :active="route().current('course-bill.index')">
-                                    账单管理
-                                </NavLink>
-                                <NavLink :href="route('student-course.index')" :active="route().current('student-course.index')">
-                                    我的课程
-                                </NavLink>
-                                <NavLink :href="route('student-bill.index')" :active="route().current('student-bill.index')">
-                                    我的账单
-                                </NavLink>
+                                <template v-if="$page.props.auth.user.isTeacher">
+                                    <NavLink :href="route('course.index')" :active="route().current('course.index')">
+                                        课程管理
+                                    </NavLink>
+                                    <NavLink :href="route('course-bill.index')" :active="route().current('course-bill.index')">
+                                        账单管理
+                                    </NavLink>
+                                </template>
+                                <template v-if="$page.props.auth.user.isStudent">
+                                    <NavLink :href="route('student-course.index')" :active="route().current('student-course.index')">
+                                        我的课程
+                                    </NavLink>
+                                    <NavLink :href="route('student-bill.index')" :active="route().current('student-bill.index')">
+                                        我的账单
+                                    </NavLink>
+                                </template>
                             </div>
                         </div>
 

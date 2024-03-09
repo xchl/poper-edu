@@ -33,16 +33,16 @@ const submit = () => {
     form.processing = true;
     form.errorMessage = '';
     axios.post('oauth/token',{
-        // headers: {
-        //     'X-Inertia': true,
-        //     'X-Inertia-Partial-Component': 'User/index',
-        //     'X-Inertia-Partial-Data': 'users',
-        //     'X-Inertia-Version': version.value,
-        // },
         grand : form.grand,
         username : form.username,
         password : form.password,
     }).then((res) => {
+        if(form.grand==='teacher'){
+            return router.visit('/course', { method: 'get' })
+        }
+        if(form.grand==='student'){
+            return router.visit('/my-course', { method: 'get' })
+        }
         router.visit('/', { method: 'get' })
     }).catch((error) => {
         form.errorMessage = error.response.data.message;
