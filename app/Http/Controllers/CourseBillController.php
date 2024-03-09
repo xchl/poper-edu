@@ -28,9 +28,6 @@ class CourseBillController extends Controller
                 'id' => $courseBill->id,
                 'name' => $courseBill->name,
                 'bill_status' => $courseBill->bill_status,
-//                'year_month' => $courseBill->year_month,
-//                'course_fee' => $courseBill->course_fee,
-//                'course' => $courseBill->course->name
             ];
         }));
 

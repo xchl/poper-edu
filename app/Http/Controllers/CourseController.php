@@ -13,7 +13,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courseBills = Course::query()
+        $courses = Course::query()
             ->where(['user_id'=>Auth::user()->id])
             ->when(Request::input('search'), function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%");
@@ -22,7 +22,7 @@ class CourseController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->withQueryString();
-        $courseBills->setCollection($courseBills->getCollection()->map(function ($course) {
+        $courses->setCollection($courses->getCollection()->map(function ($course) {
             return [
                 'id' => $course->id,
                 'name' => $course->name,
@@ -35,7 +35,7 @@ class CourseController extends Controller
         }));
 
         return Inertia::render('Course/Index',[
-            'courses' => $courseBills
+            'courses' => $courses
         ]);
     }
 

@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentBillController;
+use App\Http\Controllers\StudentCourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,15 +37,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //课程相关
+    //教师端-课程相关
     Route::get('/course',[CourseController::class,'index'])->name('course.index');
     Route::get('/course/create',[CourseController::class,'create'])->name('course.create');
     Route::post('/course',[CourseController::class,'store'])->name('course.store');
 
-    //账单相关
+    //教师端-账单相关
     Route::get('/course-bill',[CourseBillController::class,'index'])->name('course-bill.index');
     Route::get('/course-bill/create',[CourseBillController::class,'create'])->name('course-bill.create');
     Route::post('/course-bill',[CourseBillController::class,'store'])->name('course-bill.store');
+
+    //学生端
+    Route::get('/my-course',[StudentCourseController::class,'index'])->name('student-course.index');
+    Route::get('/my-bill',[StudentBillController::class,'index'])->name('student-bill.index');
+    Route::post('/pay-bill',[StudentBillController::class,'pay'])->name('student-bill.pay');
 });
 
 require __DIR__.'/auth.php';

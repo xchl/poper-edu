@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import FlashMessages from "@/Components/FlashMessages.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -37,6 +38,12 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                                 <NavLink :href="route('course-bill.index')" :active="route().current('course-bill.index')">
                                     账单管理
+                                </NavLink>
+                                <NavLink :href="route('student-course.index')" :active="route().current('student-course.index')">
+                                    我的课程
+                                </NavLink>
+                                <NavLink :href="route('student-bill.index')" :active="route().current('student-bill.index')">
+                                    我的账单
                                 </NavLink>
                             </div>
                         </div>
@@ -71,7 +78,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            退出
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -150,6 +157,9 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main>
+                <div class="relative">
+                    <flash-messages class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/4"/>
+                </div>
                 <slot />
             </main>
         </div>
