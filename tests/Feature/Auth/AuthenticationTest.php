@@ -9,34 +9,40 @@ test('login screen can be rendered', function () {
     $response->assertStatus(200);
 });
 
-test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
-
-    $response = $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'password',
+test('teachers can login', function () {
+    $response = $this->post('/oauth/token', [
+        'username' => 'zhanglaoshi',
+        'password' => 'poper',
+        'guard' => 'teacher',
     ]);
-
-    $this->assertAuthenticated();
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertStatus(200);
 });
 
-test('users can not authenticate with invalid password', function () {
-    $user = User::factory()->create();
-
-    $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'wrong-password',
+test('teachers cannot login', function () {
+    $response = $this->post('/oauth/token', [
+        'username' => 'zhanglaoshi',
+        'password' => 'wrong password',
+        'guard' => 'teacher',
     ]);
 
-    $this->assertGuest();
+    $response->assertStatus(400);
+});
+test('students can login', function () {
+    $response = $this->post('/oauth/token', [
+        'username' => 'wangtongxue',
+        'password' => 'poper',
+        'guard' => 'student',
+    ]);
+
+    $response->assertStatus(200);
 });
 
-test('users can logout', function () {
-    $user = User::factory()->create();
+test('students cannot login', function () {
+    $response = $this->post('/oauth/token', [
+        'username' => 'wangtongxue',
+        'password' => 'wrong password',
+        'guard' => 'student',
+    ]);
 
-    $response = $this->actingAs($user)->post('/logout');
-
-    $this->assertGuest();
-    $response->assertRedirect('/');
+    $response->assertStatus(400);
 });
