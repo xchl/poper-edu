@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Throwable;
-use function bcmul;
+use function \bcmul;
 
 class StudentBillController extends Controller
 {
