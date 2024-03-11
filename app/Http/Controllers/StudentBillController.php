@@ -6,9 +6,10 @@ use App\Enums\StudentBillStatus;
 use App\Models\StudentBill;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
+use Throwable;
+use function bcmul;
 
 class StudentBillController extends Controller
 {
@@ -53,7 +54,7 @@ class StudentBillController extends Controller
                 $stModel->bill_status = StudentBillStatus::payed->value;
                 $stModel->save();
                 Request::session()->flash('success', '支付成功');
-            }catch (\Throwable $throwable){
+            }catch (Throwable $throwable){
                 Request::session()->flash('error', '支付失败: '.$throwable->getMessage());
             }
         }
