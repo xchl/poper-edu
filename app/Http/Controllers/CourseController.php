@@ -42,10 +42,13 @@ class CourseController extends Controller
     public function store()
     {
         $attributes = Request::validate([
-            'name' => ['required'],
-            'course_fee' => ['required','numeric','min:0','max:1000000'],
+            'name' => ['required','unique:courses,name', 'max:50'],
+            'course_fee' => ['required', 'between:0,1000000', 'regex:/^\d+(\.\d{1,2})?$/'],
             'year_month' => ['required','yearmonth'],
             'students' => 'array',
+        ],[
+            'year_month.yearmonth' => '年月格式不正确',
+            'course_fee' => '金额格式不正确,最多两位小数',
         ]);
         $attributes['user_id'] = Auth::user()->id;
         DB::transaction(function ()use($attributes) {
