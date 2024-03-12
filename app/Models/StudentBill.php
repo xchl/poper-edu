@@ -28,5 +28,6 @@ class StudentBill extends Model
 
     protected $casts = [
         'bill_status' => 'integer',
+        'student_user_id' => 'string'
     ];
 }

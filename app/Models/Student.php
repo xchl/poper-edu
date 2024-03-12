@@ -12,6 +12,8 @@ class Student extends Authenticatable
     use HasApiTokens;
     public $incrementing = false;
 
+    protected $keyType = 'string';
+
     public function findForPassport(string $username)
     {
         return $this->where('username', $username)->first();
@@ -25,4 +27,9 @@ class Student extends Authenticatable
     {
         return $this->belongsToMany(Course::class,'student_courses','course_id','user_id');
     }
+
+    protected $casts = [
+        'id' => 'string'
+    ];
+
 }

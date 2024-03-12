@@ -16,6 +16,7 @@ class CourseBillService
     public function sendBillToStudent(int $billId)
     {
         $courseBillModel =  CourseBill::find($billId);
+        if(!$courseBillModel) throw new \LogicException('账单不存在');
         if($courseBillModel->canSendBill()){
             //考虑到发送账单业务后续可能是一个耗时操作,这里状态先改为发送中，防止重复发送
             $courseBillModel->bill_status = CourseBillEnum::seeding->value;

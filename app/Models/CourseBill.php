@@ -6,6 +6,7 @@ use App\Enums\CourseBillEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CourseBill extends Model
 {
@@ -15,6 +16,11 @@ class CourseBill extends Model
     public function canSendBill():bool
     {
         return $this->bill_status === CourseBillEnum::created->value;
+    }
+
+    public function details():HasMany
+    {
+        return $this->hasMany(StudentBill::class,'course_bill_id','id');
     }
 
     public function course():BelongsTo

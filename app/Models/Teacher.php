@@ -10,6 +10,7 @@ class Teacher extends Authenticatable
 {
     use HasApiTokens;
     public $incrementing = false;
+    protected $keyType = 'string';
 
     public function findForPassport(string $username)
     {

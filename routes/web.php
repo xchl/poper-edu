@@ -42,6 +42,8 @@ Route::middleware('auth:teacher')->group(function () {
     Route::get('/course-bill',[CourseBillController::class,'index'])->name('course-bill.index');
     Route::get('/course-bill/create',[CourseBillController::class,'create'])->name('course-bill.create');
     Route::post('/course-bill',[CourseBillController::class,'store'])->name('course-bill.store');
+    Route::post('/course-bill/send',[CourseBillController::class,'sendBill'])->name('course-bill.send');
+    Route::get('/course-bill/details/{id}',[CourseBillController::class,'billDetails'])->name('course-bill.details');
 });
 Route::middleware('auth:student')->group(function () {
     //学生端
