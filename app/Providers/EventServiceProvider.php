@@ -17,9 +17,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        CourseBillCreated::class => [
-            SendCourseBillToStudents::class,
-        ],
+//        CourseBillCreated::class => [
+//            SendCourseBillToStudents::class,
+//        ],
     ];
 
     /**
